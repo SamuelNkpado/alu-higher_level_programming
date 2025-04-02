@@ -1,88 +1,61 @@
-This module defines a square-printing function ``print_square(size)``.
+#!/usr/bin/python3
+"""Unittests for max_integer([..])."""
 
-Usage
-=====
+import unittest
+max_integer = __import__('6-max_integer').max_integer
 
-Squares are printed using the ``#`` character. The parameter ``size``
-represents the height and width of the square.
 
-::
+class TestMaxInteger(unittest.TestCase):
+    """Define unittests for max_integer([..])."""
 
-    >>> print_square = __import__('4-print_square').print_square
-    >>> print_square(1)
-    #
+    def test_ordered_list(self):
+        """Test an ordered list of integers."""
+        ordered = [1, 2, 3, 4]
+        self.assertEqual(max_integer(ordered), 4)
 
-::
+    def test_unordered_list(self):
+        """Test an unordered list of integers."""
+        unordered = [1, 2, 4, 3]
+        self.assertEqual(max_integer(unordered), 4)
 
-    >>> print_square(4)
-    ####
-    ####
-    ####
-    ####
+    def test_max_at_begginning(self):
+        """Test a list with a beginning max value."""
+        max_at_beginning = [4, 3, 2, 1]
+        self.assertEqual(max_integer(max_at_beginning), 4)
 
-::
+    def test_empty_list(self):
+        """Test an empty list."""
+        empty = []
+        self.assertEqual(max_integer(empty), None)
 
-    >>> print_square(10)
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
-    ##########
+    def test_one_element_list(self):
+        """Test a list with a single element."""
+        one_element = [7]
+        self.assertEqual(max_integer(one_element), 7)
 
-If ``size`` is zero, the function prints nothing.
+    def test_floats(self):
+        """Test a list of floats."""
+        floats = [1.53, 6.33, -9.123, 15.2, 6.0]
+        self.assertEqual(max_integer(floats), 15.2)
 
-::
+    def test_ints_and_floats(self):
+        """Test a list of ints and floats."""
+        ints_and_floats = [1.53, 15.5, -9, 15, 6]
+        self.assertEqual(max_integer(ints_and_floats), 15.5)
 
-    >>> print_square(0)
+    def test_string(self):
+        """Test a string."""
+        string = "Brennan"
+        self.assertEqual(max_integer(string), 'r')
 
-Invalid Sizes
-=============
+    def test_list_of_strings(self):
+        """Test a list of strings."""
+        strings = ["Brennan", "is", "my", "name"]
+        self.assertEqual(max_integer(strings), "name")
 
-The parameter ``size`` must be an integer. Otherwise, a TypeError is raised.
+    def test_empty_string(self):
+        """Test an empty string."""
+        self.assertEqual(max_integer(""), None)
 
-::
-
-    >>> print_square("not an int")
-    Traceback (most recent call last):
-    TypeError: size must be an integer
-
-::
-
-    >>> print_square(5.5)
-    Traceback (most recent call last):
-    TypeError: size must be an integer
-
-::
-
-    >>> print_square(None)
-    Traceback (most recent call last):
-    TypeError: size must be an integer
-
-If ``size`` is less than zero, a ValueError is raised.
-
-::
-
-    >>> print_square(-7)
-    Traceback (most recent call last):
-    ValueError: size must be >= 0
-
-Note that type-checking occurs before value-checking.
-
-::
-
-    >>> print_square(-7.5)
-    Traceback (most recent call last):
-    TypeError: size must be an integer
-
-At least one argument must be provided.
-
-::
-
-    >>> print_square()
-    Traceback (most recent call last):
-    TypeError: print_square() missing 1 required positional argument: 'size'
+if __name__ == '__main__':
+    unittest.main()'
